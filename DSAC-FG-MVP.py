@@ -8,6 +8,8 @@ from tabulate import tabulate
 from data_collection.classes import Stock
 from data_collection.helpers import get_stock_history
 from data_storage.DSAC_FG_MVP_Storage import store_stock_history, retrieve_stock_history
+from data_analysis.DSAC_FG_MVP_StatisticalAnalysis import get_statistics
+from data_visualization.DSAC_FG_MVP_Visualization import plot_bollinger, plot_price, plot_sma
 
 if __name__ == "__main__":
     tsla_stock = get_stock_history("TSLA")
@@ -35,11 +37,17 @@ if __name__ == "__main__":
     aapl_stock = retrieve_stock_history(s3, "aapl")
     
     # printing the stocks in a tabular format in the terminal.
-    print("\n\n\nTESLA stock\n")
+    print("\n\n\nTESLA stock history\n")
     print(tabulate(tsla_stock.history, headers='keys', tablefmt='fancy_grid'))
-    print("\n\n\nAPPLE stock\n")
+    print("\n\n\nAPPLE stock history\n")
     print(tabulate(aapl_stock.history, headers='keys', tablefmt='fancy_grid'))
 
     # Plotting the stock history in a line plot
-    tsla_stock.plot_price()
-    aapl_stock.plot_price()
+    plot_price(tsla_stock)
+    plot_price(aapl_stock)
+    
+    #Generating and printing statistics
+    print("\n\n\nTESLA stock statistics\n")
+    print(tabulate(get_statistics(tsla_stock), headers='keys', tablefmt='fancy_grid'))
+    print("\n\n\nAPPLE stock statistics\n")
+    print(tabulate(get_statistics(aapl_stock), headers='keys', tablefmt='fancy_grid'))
