@@ -3,13 +3,21 @@ import json
 import yfinance as yf
 import matplotlib.pyplot as plt
 import boto3
+import pandas as pd
 from tabulate import tabulate
+from dash import Dash, dcc, html, Output, Input, callback
+import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
+
+
 
 from data_collection.classes import Stock
 from data_collection.helpers import get_stock_history
 from data_storage.DSAC_FG_MVP_Storage import store_stock_history, retrieve_stock_history
 from data_analysis.DSAC_FG_MVP_StatisticalAnalysis import get_statistics
 from data_visualization.DSAC_FG_MVP_Visualization import plot_bollinger, plot_price, plot_sma
+from data_visualization.DSAC_FG_MVP_InteractiveVisualization import start_dash
+
 
 if __name__ == "__main__":
     tsla_stock = get_stock_history("TSLA")
@@ -43,11 +51,14 @@ if __name__ == "__main__":
     print(tabulate(aapl_stock.history, headers='keys', tablefmt='fancy_grid'))
 
     # Plotting the stock history in a line plot
-    plot_price(tsla_stock)
-    plot_price(aapl_stock)
+    """plot_price(tsla_stock)
+    plot_price(aapl_stock)"""
     
     #Generating and printing statistics
     print("\n\n\nTESLA stock statistics\n")
     print(tabulate(get_statistics(tsla_stock), headers='keys', tablefmt='fancy_grid'))
     print("\n\n\nAPPLE stock statistics\n")
     print(tabulate(get_statistics(aapl_stock), headers='keys', tablefmt='fancy_grid'))
+
+    # Initializing Dashboard
+    start_dash(tsla_stock, get_statistics(tsla_stock))
