@@ -42,13 +42,14 @@ def get_statistics(stock):
     A dataframe with the statistical values calculated form the given data. 
   """
 
-  stats_df = pd.DataFrame(columns=["Open", "High", "Low", "Close", "Volume"],
-                          index= ["Min", "Max", "Range", "Median", "Mean", "Variance", "Std" ])
+  stats_df = pd.DataFrame(columns=["Statistic", "Open", "High", "Low", "Close", "Volume"])
 
+  stats_df["Statistic"] = ["Min", "Max", "Range", "Median", "Mean", "Variance", "Std" ]
   stats_df["Open"] = statsof(stock.history["Open"])
   stats_df["High"] = statsof(stock.history["High"])
   stats_df["Low"] = statsof(stock.history["Low"])
   stats_df["Close"] = statsof(stock.history["Close"])
   stats_df["Volume"] = statsof(stock.history["Volume"])
 
+  stats_df = stats_df.round(4)
   return stats_df

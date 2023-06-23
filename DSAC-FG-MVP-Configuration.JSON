@@ -1,5 +1,6 @@
 {
-    "AWS_DEFAULT_REGION" :"your-region-here",
-    "AWS_ACCESS_KEY_ID" : "Your access key here",
-    "AWS_SECRET_ACCESS_KEY" : "Your secret access key here"
+    "AWS_DEFAULT_REGION" :"us-east-1",
+    "AWS_ACCESS_KEY_ID" : "AKIA2X3FFMWVA2Y4B6VA",
+    "AWS_SECRET_ACCESS_KEY" : "/GqrxIfQ3G3Zd1+tWF/9Nvl7zqDW6CgGBNHLRyRq"
+
 }
