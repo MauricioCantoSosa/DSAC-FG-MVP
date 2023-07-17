@@ -10,7 +10,6 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 
 
-
 from data_collection.classes import Stock
 from data_collection.helpers import get_stock_history
 from data_storage.DSAC_FG_MVP_Storage import store_stock_history, retrieve_stock_history
@@ -20,7 +19,7 @@ from data_visualization.DSAC_FG_MVP_InteractiveVisualization import start_dash
 
 
 if __name__ == "__main__":
-    tsla_stock = get_stock_history("TSLA")
+    tsla_stock = get_stock_history("TSLA", start="2000-01-01" , end="2023-06-01")
     aapl_stock = get_stock_history("AAPL")
 
     # Reading the configuration file with the key access to an 
@@ -43,7 +42,7 @@ if __name__ == "__main__":
     # Retrieving the stock history od the selected stock symbol
     tsla_stock = retrieve_stock_history(s3, "tsla")
     aapl_stock = retrieve_stock_history(s3, "aapl")
-    
+
     # printing the stocks in a tabular format in the terminal.
     print("\n\n\nTESLA stock history\n")
     print(tabulate(tsla_stock.history, headers='keys', tablefmt='fancy_grid'))
