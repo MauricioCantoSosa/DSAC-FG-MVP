@@ -4,6 +4,8 @@ import plotly.graph_objects as go
 from dash import dash_table
 import pandas as pd
 
+from forecasting.DSAC_FG_MVP_Forecasting import forecast
+
 # Structures and initializes Dashboard
 def start_dash(stock, stock_stats):
     """
@@ -16,6 +18,7 @@ def start_dash(stock, stock_stats):
     stock_stats : Pandas Dataframe
         Dataframe which includes the statistics of the stock history
     """
+    prediction = forecast(stock.history)
 
     app = Dash(__name__, external_stylesheets=[dbc.themes.LUMEN])
 
@@ -63,7 +66,15 @@ def start_dash(stock, stock_stats):
                                )
                     ]),
         ]),
+
+      html.H1('Prediction', style={'textAlign': 'center'}),
+
+      dbc.Row([
+            # Prophet prediction plot
+            dbc.Col([dcc.Graph(style={'height': '45vh', 'margin' : '0px'}, figure= prediction)], width = 12),
+      ]),
     ], fluid=True)
+
 
     @callback(
         Output(component_id='candle', component_property='figure'),
