@@ -32,5 +32,7 @@ def get_stock_history(symbol, start="2022-12-31" , end="2023-04-01"):
   currency = ticker.history_metadata["currency"]
   timezone = ticker.history_metadata["timezone"]
 
+  history.index = history.index.date
+
   stock = Stock(symbol, currency, timezone, history)
   return stock
